@@ -1,6 +1,7 @@
 const express = require("express");
 const app= express();
 const morgan= require('morgan');
+const mongoose = require('mongoose')
 
 //setting
 app.set('port',process.env.PORT || 3000)
@@ -16,7 +17,10 @@ app.use((req, res, next) => {
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-
+//DB CONNECTION
+mongoose.connect('mongodb://localhost/mongodb')
+    .then(db => console.log('Database conected succesfully!'))
+    .catch(err => console.log(err));
 //ROUTES
 app.use(require('./routes/routes'))
 
