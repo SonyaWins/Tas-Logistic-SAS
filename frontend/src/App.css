@@ -1,0 +1,17 @@
+.navbar-light{
+    background: linear-gradient(90deg, rgba(167,167,139,1) 22%, rgba(203,201,198,1) 79%);
+}
+
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: blue;
+
+  }
+  
+  
