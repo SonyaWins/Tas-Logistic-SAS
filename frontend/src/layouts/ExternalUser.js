@@ -25,7 +25,7 @@ import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
-import routes from "routers/admi-routes.js";
+import routes from "routers/user-routers.js";
 
 var ps;
 
@@ -63,7 +63,7 @@ function Admin(props) {
       />
 
       <div className="main-panel" ref={mainPanel}>
-        <Navbar {...props} routes={routes}/>
+        <Navbar {...props} routes={routes} />
         <Switch>
           {routes.map((prop, key) => {
             return (
