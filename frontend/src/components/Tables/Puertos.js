@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
     Button,
     Card,
@@ -9,17 +11,28 @@ import {
     Col,
     Form,
     FormGroup,
-    Input
+    Input,
+    Modal,
+    ModalHeader,
+    ModalBody
 } from "reactstrap";
 
-export default function Puertos(props) {
+import CrearPuerto from "../Forms/CrearPuerto.js"
 
-    return (
+export default function Puertos(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleSubmit = (e) => e.preventDefault();
+
+  return (
+    <>
       <Card className="">
         <CardHeader>
           <CardTitle className="d-inline-block" tag="h4">Puertos</CardTitle>
         
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Row>
               <Col md="6">
                 <FormGroup>
@@ -38,8 +51,8 @@ export default function Puertos(props) {
 
             <Row>
               <Col md="12">
-                <Button>Buscar</Button>
-                <Button>Crear</Button>
+                <Button type="submit">Buscar</Button>
+                <Button onClick={handleShow}>Crear</Button>
               </Col>
             </Row>
             
@@ -60,5 +73,16 @@ export default function Puertos(props) {
           </Table>
         </CardBody>
       </Card>
-    )
+
+      <Modal centered={true} isOpen={show} toggle={handleClose}>
+        <ModalHeader toggle={handleClose}>
+          Crear Puerto
+        </ModalHeader>
+
+        <ModalBody>
+          <CrearPuerto />
+        </ModalBody>
+      </Modal>
+    </>
+  )
 }

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Button,
   Card,
@@ -9,15 +11,27 @@ import {
   Col,
   Form,
   FormGroup,
-  Input
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody
 } from "reactstrap";
 
+import CrearOrden from "../Forms/CrearOrden.js"
+
 export default function Ordenes(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleSubmit = (e) => e.preventDefault();
+
   return (
-    <Card>
+    <>
+    <Card className="h-100">
       <CardHeader>
         <CardTitle className="d-inline-block" tag="h4">Ordenes</CardTitle>
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Row>
               <Col md="4">
                 <FormGroup>
@@ -43,8 +57,8 @@ export default function Ordenes(props) {
 
             <Row>
               <Col md="12">
-                <Button>Buscar</Button>
-                <Button>Crear</Button>
+                <Button type="submit" >Buscar</Button>
+                <Button onClick={handleShow}>Crear</Button>
               </Col>
             </Row>
             
@@ -67,5 +81,17 @@ export default function Ordenes(props) {
         </Table>
       </CardBody>
     </Card>
+
+    <Modal centered={true} isOpen={show} toggle={handleClose}>
+
+      <ModalHeader toggle={handleClose}>
+        Crear Orden
+      </ModalHeader>
+
+      <ModalBody>
+        <CrearOrden />
+      </ModalBody>
+    </Modal>
+    </>
   )
 }
