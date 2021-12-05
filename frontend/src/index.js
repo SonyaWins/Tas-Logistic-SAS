@@ -18,22 +18,24 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-import AdminLayout from "layouts/Admin.js";
-import ExternalUser from "layouts/ExternalUser.js";
+import Admin from "layouts/Admin.js";
+import User from "layouts/User.js";
+import Auth from "layouts/Auth.js"
 
 ReactDOM.render(
+
   <BrowserRouter>
     <Switch>
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Route path="/external-user" render={(props) => <ExternalUser {...props} />} />
-      <Redirect to="/admin/dashboard" />
+      <Route path="/admin" render={(props) => <Admin {...props} />} />
+      <Route path="/user" render={(props) => <User {...props} />} />
+      <Route path="/auth" render={(props) => <Auth {...props} />} />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

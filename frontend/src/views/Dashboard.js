@@ -31,7 +31,6 @@ import {
 } from "reactstrap";
 // core components
 import {
-  dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart,
 } from "variables/charts.js";
@@ -39,9 +38,8 @@ import {
 function Dashboard() {
   return (
     <>
-      <div className="content">
-        
-        <Row>
+      <div className="content d-flex">
+        <Row className="ml-auto mr-auto my-auto row-eq-height"> 
           <Col md="4">
             <Card>
               <CardHeader>
@@ -72,8 +70,9 @@ function Dashboard() {
                 <CardTitle tag="h5">Historico</CardTitle>
               </CardHeader>
 
-              <CardBody>
+              <CardBody className="d-flex" style={{ height: "266px" }}>
                 <Line
+                  className="my-auto"
                   data={dashboardNASDAQChart.data}
                   options={dashboardNASDAQChart.options}
                   width={400}

@@ -17,6 +17,7 @@
 
 */
 import React from "react";
+
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, useLocation } from "react-router-dom";
@@ -24,7 +25,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import Header from "components/Header/Header.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
-import routes from "routers/admi-routes.js";
+import routes from "routers/admin-routes.js";
 
 var ps;
 

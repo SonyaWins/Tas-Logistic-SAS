@@ -14,7 +14,7 @@ import {
 
 export default function Distancias(props) {
     return (
-        <Card className="card-plain">
+        <Card className="">
             <CardHeader>
             <CardTitle tag="h4">Distancia</CardTitle>
             <Form>

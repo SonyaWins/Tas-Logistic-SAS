@@ -17,7 +17,7 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import UserPage from "views/User.js";
+import UserPage from "views/Account.js";
 import Ordenes from "views/Ordenes.js"
 import Puertos from "views/Puertos.js"
 
