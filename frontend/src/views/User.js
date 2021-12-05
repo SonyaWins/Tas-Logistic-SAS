@@ -35,8 +35,8 @@ import {
 function User() {
   return (
     <>
-      <div className="content">
-        <Card className="card-user">
+      <div className="content d-flex justify-content-center">
+        <Card className="card-user w-75">
           
           <CardHeader>
             <CardTitle tag="h5">Editar Perfil de Usuario</CardTitle>
@@ -46,7 +46,7 @@ function User() {
             <Form>
               
               <Row>   
-                <Col className="pr-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label>Nombre de usuario</label>
                     <Input
@@ -56,7 +56,7 @@ function User() {
                   </FormGroup>
                 </Col>
 
-                <Col className="pl-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label htmlFor="exampleInputEmail1">
                       Correo
@@ -67,7 +67,7 @@ function User() {
               </Row>
               
               <Row>
-                <Col className="pr-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label>Nombre(s)</label>
                     <Input
@@ -77,7 +77,7 @@ function User() {
                   </FormGroup>
                 </Col>
 
-                <Col className="pl-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label>Apellido(s)</label>
                     <Input
@@ -96,7 +96,7 @@ function User() {
               </Row>
               
               <Row>
-                <Col className="pr-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label>Contraseña actual</label>
                     <Input
@@ -105,7 +105,7 @@ function User() {
                   </FormGroup>
                 </Col>
 
-                <Col className="pl-1" md="6">
+                <Col md="6">
                   <FormGroup>
                     <label>Nueva Contraseña</label>
                     <Input
@@ -118,7 +118,6 @@ function User() {
               <Row>
                 <div className="update ml-auto mr-auto">
                   <Button
-                    className="btn-round"
                     color="primary"
                     type="submit"
                   >

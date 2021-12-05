@@ -21,8 +21,7 @@ import React from "react";
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, useLocation } from "react-router-dom";
 
-import Navbar from "components/Navbars/Navbar.js";
-import Footer from "components/Footer/Footer.js";
+import Header from "components/Header/Header.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routers/admi-routes.js";
@@ -30,8 +29,6 @@ import routes from "routers/admi-routes.js";
 var ps;
 
 function Admin(props) {
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
   const location = useLocation();
   
@@ -58,12 +55,12 @@ function Admin(props) {
       <Sidebar
         {...props}
         routes={routes}
-        bgColor={backgroundColor}
-        activeColor={activeColor}
+        bgColor={"black"}
+        activeColor={"info"}
       />
 
       <div className="main-panel" ref={mainPanel}>
-        <Navbar {...props} routes={routes}/>
+        <Header {...props} routes={routes}/>
         <Switch>
           {routes.map((prop, key) => {
             return (
@@ -75,7 +72,6 @@ function Admin(props) {
             );
           })}
         </Switch>
-        <Footer fluid />
       </div>
     </div>
   );

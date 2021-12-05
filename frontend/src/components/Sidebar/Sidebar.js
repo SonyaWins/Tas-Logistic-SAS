@@ -22,7 +22,7 @@ import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "logo.svg";
+import logo from "logo.png";
 
 var ps;
 
@@ -52,8 +52,7 @@ function Sidebar(props) {
       data-active-color={props.activeColor}
     >
       <div className="logo">
-        <a
-          href=""
+        <a href="/"
           className="simple-text logo-mini"
         >
           <div className="logo-img">
@@ -61,7 +60,7 @@ function Sidebar(props) {
           </div>
         </a>
         <a
-          href=""
+          href="/"
           className="simple-text logo-normal"
         >
           Tas Logistics S.A.S

@@ -18,34 +18,18 @@
 */
 import React from "react";
 import { useLocation } from "react-router-dom";
+
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
-  Container,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-  Input,
+  Container
 } from "reactstrap";
 
 
 function Header(props) {
   const routes = props.routes;
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
   const location = useLocation();
-  
-  const toggle = () => {
-    if (isOpen) {
-      setColor("transparent");
-    } else {
-      setColor("dark");
-    }
-    setIsOpen(!isOpen);
-  };
   
   const getBrand = () => {
     let brandName = "Default Brand";
@@ -57,21 +41,12 @@ function Header(props) {
     });
     return brandName;
   };
+
   const openSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
     sidebarToggle.current.classList.toggle("toggled");
   };
-  // function that adds color dark/transparent to the navbar on resize (this is for the collapse)
-  const updateColor = () => {
-    if (window.innerWidth < 993 && isOpen) {
-      setColor("dark");
-    } else {
-      setColor("transparent");
-    }
-  };
-  React.useEffect(() => {
-    window.addEventListener("resize", updateColor.bind(this));
-  });
+
   React.useEffect(() => {
     if (
       window.innerWidth < 993 &&
@@ -81,19 +56,16 @@ function Header(props) {
       sidebarToggle.current.classList.toggle("toggled");
     }
   }, [location]);
+
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
-      color={
-        props.location.pathname.indexOf("full-screen-maps") !== -1
-          ? "dark"
-          : color
-      }
+      color={"transparent"}
+      
       expand="lg"
       className={
         props.location.pathname.indexOf("full-screen-maps") !== -1 ?          "navbar-absolute fixed-top"
-          : "navbar-absolute fixed-top " +
-            (color === "transparent" ? "navbar-transparent " : "")
+          : "navbar-absolute fixed-top navbar-transparent"
       }
     >
       <Container fluid>
@@ -114,26 +86,7 @@ function Header(props) {
           </div>
           <NavbarBrand href="/">{getBrand()}</NavbarBrand>
         </div>
-
-        <NavbarToggler onClick={toggle}>
-          <span className="navbar-toggler-bar navbar-kebab" />
-          <span className="navbar-toggler-bar navbar-kebab" />
-          <span className="navbar-toggler-bar navbar-kebab" />
-        </NavbarToggler>
         
-        <Collapse isOpen={isOpen} navbar className="justify-content-end">
-        
-          <form>
-            <InputGroup className="no-border">
-              <Input placeholder="Search..." />
-              <InputGroupAddon addonType="append">
-                <InputGroupText>
-                  <i className="nc-icon nc-zoom-split" />
-                </InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
-          </form>
-        </Collapse>
       </Container>
     </Navbar>
   );
