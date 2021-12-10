@@ -16,9 +16,31 @@ passport.use('local-signup',  new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, email, password, done)=>{
-    const user = new User();
-    user.email = email;
-    user.password = password;
-    await user.save();
+    const existUser = await User.findOne({email:email})
+    if(existUser){
+        return done(null,false,'error');
+    }
+    else{
+        const newUser = new User();
+        newUser.email = email;
+        newUser.password = newUser.hashPassword(password);
+        await newUser.save();
+        done(null,newUser);
+    }
+    
+}));
+
+passport.use('local-signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, email, password, done) => {
+    const user = await User.findOne({email: email});
+    if(!user){
+        return done(null,false,'email error');
+    }
+    if(!user.validatePassword(password)){
+        return done(null,false,'password error');
+    }
     done(null,user);
 }));

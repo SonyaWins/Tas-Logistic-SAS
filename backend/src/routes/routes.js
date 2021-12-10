@@ -23,5 +23,38 @@ router.post('/signup',passport.authenticate('local-signup',{
     passReqToCallback: true
 }));
 
+router.get('/signin',(req,res,next)=>{
+    res.send('Login');
+})
+
+router.post('/signin',passport.authenticate('local-signin',{
+    successRedirect: '/',
+    failureRedirect: '/signup',
+    passReqToCallback: true
+}))
+
+
+//is authenticated
+router.use((req,res,next)=>{
+    isAuthenticated(req,res,next);
+    next();
+});
+
+router.get('/logout',(req,res,next) =>{
+    req.logout();
+    res.redirect('/')
+})
+
+router.get('/profile',(req,res,next)=>{
+    res.send('PROFILE')
+})
+
+
+function isAuthenticated(req,res,next)  {
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/signin');
+};
 
 module.exports = router;

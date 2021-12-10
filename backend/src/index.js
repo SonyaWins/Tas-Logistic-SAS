@@ -31,6 +31,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 //DB CONNECTION
 mongoose.connect('mongodb://localhost/mongodb')
     .then(db => console.log('Database conected succesfully!'))
