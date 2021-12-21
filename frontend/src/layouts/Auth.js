@@ -10,19 +10,13 @@ import {
     CardHeader,
     NavItem,
     NavLink,
-    Nav,
-    Input
+    Nav
 } from "reactstrap";
 
 import Login from "../components/Forms/Login.js"
 import SignUp from "../components/Forms/SignUp.js"
-import { Button } from "bootstrap";
 
 var ps;
-
-function hello(){
-  console.log("ok work it!")
-}
 
 function Auth(props) {
   const [tab, setTab] = useState(0);
@@ -84,7 +78,7 @@ function Auth(props) {
           </CardHeader>
 
           <CardBody>
-            {tab === 0? <Login onClick="hello()" /> : <SignUp />}
+            {tab === 0? <Login setAuth={props.setAuth} /> : <SignUp setAuth={props.setAuth}/>}
           </CardBody>
         </Card> 
       </div>

@@ -30,7 +30,7 @@ import User from "layouts/User.js";
 import Auth from "layouts/Auth.js";
 
 const App = () => {
-  const [auth, setAuth] = useState("admin");
+  const [auth, setAuth] = useState("");
   let layout, path;
 
   switch (auth) {

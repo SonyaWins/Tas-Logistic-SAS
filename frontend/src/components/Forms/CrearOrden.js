@@ -11,7 +11,8 @@ import {
 import { session_url } from "../../variables/general.js"
 
 export default function CrearOrden(props) {
- 
+  console.log(session_url);
+  
   const crear = e => {
     e.preventDefault();
 
@@ -34,14 +35,14 @@ export default function CrearOrden(props) {
       price:orden.precio,
       orderStatus:orden.estado,
     }
-    //let data = [...props.data, orden]
+    let data = [...props.data, orden]
 
     axios.post(`${session_url}/orders/create`,  axioData)
     .then(res=>{
       console.log(res.data);
     })
-    //props.setData(data);
-    //props.close();
+    props.setData(data);
+    props.close();
   }
   return (
       <Form onSubmit={crear}>
@@ -71,7 +72,6 @@ export default function CrearOrden(props) {
             </FormGroup>
           </Col>
         </Row>
-
 
         <Row>
           <Col md="12">

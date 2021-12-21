@@ -1,3 +1,3 @@
-const session_url = "http://localhost:3001";
+const session_url = "https://taslogistic.azurewebsites.net/";
 
 export { session_url };

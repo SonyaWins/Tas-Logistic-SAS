@@ -16,16 +16,14 @@ export default function login(props) {
 	const submit = (e) => {
 		e.preventDefault();
 
-		axios.post(session_url, {'Content-Type': 'text/plain'}, {
-			auth: {
-			  username: e.target.username.value,
-			  password: e.target.password.value
-			}
+		axios.post(`${session_url}/login`,{
+			userñame: e.target.username.value,
+			passwordHash: e.target.password.value
 		}).then((response) =>
 			console.log(response)
 		).catch(error => {
-            console.log("Error ========>", error);
-        });	  
+				console.log("Error ========>", error);
+		});	  
 	}
 
 	return (
