@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
     Button,
     FormGroup,
@@ -7,6 +8,11 @@ import {
     Col,
 } from "reactstrap";
 
+function CreateOrder(){
+  axios.post()
+  console.log(document.getElementById("OriginPort").value)
+}
+
 export default function CrearOrden(props) {
     return (
       <Form>
@@ -14,7 +20,7 @@ export default function CrearOrden(props) {
           <Col md="12">
             <FormGroup>
               <label>Puerto Origen</label>
-              <Input required name="name"type="text" />
+              <Input required name="name"type="text" id="OriginPort" />
             </FormGroup>
           </Col>
         </Row>
@@ -39,7 +45,7 @@ export default function CrearOrden(props) {
 
         <Row>
           <div className="ml-auto mr-auto">
-              <Button color="primary" type="submit"> Crear </Button>
+              <Button color="primary" type="button" onClick={CreateOrder}> Crear </Button>
           </div>
         </Row>
       </Form>

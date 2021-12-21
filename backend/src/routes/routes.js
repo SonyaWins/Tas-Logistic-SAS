@@ -1,8 +1,7 @@
 const {Router} = require("express");
 const router = Router();
 const passport = require('passport');
-//const products = require('../database.json')
-//const _ = require('underscore')
+const Order = require('../models/orders');
 
 router.get('/',(req,res)=>{
     res.json({Data:"Hello Express!"});
@@ -25,13 +24,18 @@ router.post('/signup',passport.authenticate('local-signup',{
 
 router.get('/signin',(req,res,next)=>{
     res.send('Login');
-})
+});
 
 router.post('/signin',passport.authenticate('local-signin',{
     successRedirect: '/',
     failureRedirect: '/signup',
     passReqToCallback: true
-}))
+}));
+
+router.get('/orders',(req,res,next)=>{
+    ordenes = Order.find(this.all);
+    res.send.json(ordenes)
+});
 
 
 //is authenticated

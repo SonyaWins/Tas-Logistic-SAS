@@ -10,13 +10,19 @@ import {
     CardHeader,
     NavItem,
     NavLink,
-    Nav
+    Nav,
+    Input
 } from "reactstrap";
 
 import Login from "../components/Forms/Login.js"
 import SignUp from "../components/Forms/SignUp.js"
+import { Button } from "bootstrap";
 
 var ps;
+
+function hello(){
+  console.log("ok work it!")
+}
 
 function Auth(props) {
   const [tab, setTab] = useState(0);
@@ -63,8 +69,9 @@ function Auth(props) {
                   className={tab === 0? "active" : ""}
                   onClick={(e) => onClickHandle(e)} href="#first">
                     Ingresar
-                  </NavLink>
+                  </NavLink>    
               </NavItem>
+
 
               <NavItem>
                 <NavLink 
@@ -77,7 +84,7 @@ function Auth(props) {
           </CardHeader>
 
           <CardBody>
-            {tab === 0? <Login /> : <SignUp />}
+            {tab === 0? <Login onClick="hello()" /> : <SignUp />}
           </CardBody>
         </Card> 
       </div>

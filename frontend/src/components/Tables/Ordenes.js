@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 import {
@@ -25,6 +26,16 @@ export default function Ordenes(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (e) => e.preventDefault();
+
+  function getOrders(){
+    axios.get("https://httpbin.org/ip")
+    .then(res=>{
+      const ip = res.data;
+      console.log(ip);
+    })
+  }
+
+
 
   return (
     <>
@@ -57,7 +68,7 @@ export default function Ordenes(props) {
 
             <Row>
               <Col md="12">
-                <Button type="submit" >Buscar</Button>
+                <Button type="button" onClick={getOrders} >Buscar</Button>
                 <Button onClick={handleShow}>Crear</Button>
               </Col>
             </Row>
@@ -75,6 +86,12 @@ export default function Ordenes(props) {
               <th>Precio</th>
               <th>Estado</th>
             </tr>
+            <tr>
+              <th>fo</th>
+              <th>fa</th>
+            </tr>
+      
+     
           </thead>
           <tbody>
           </tbody>
