@@ -2,6 +2,7 @@ const {Router} = require("express");
 const router = Router();
 const passport = require('passport');
 const Order = require('../models/orders');
+const Distance = require('../models/distances')
 
 router.get('/',(req,res)=>{
     res.json({Data:"Hello Express!"});
@@ -32,9 +33,32 @@ router.post('/signin',passport.authenticate('local-signin',{
     passReqToCallback: true
 }));
 
-router.get('/orders',(req,res,next)=>{
-    ordenes = Order.find(this.all);
-    res.send.json(ordenes)
+//CONSULTAR ORDEN
+router.get('/orders',async (req,res)=>{
+    ordenes =  await Order.find();
+    res.send(ordenes);
+});
+
+//CREAR ORDEN
+router.post('/orders/create', async (req,res)=>{
+    const orden = new Order(req.body);
+    await orden.save();
+    res.redirect('/');
+   
+});
+
+//CONSULTAR DISTANCIA
+router.get('/distances',async (req,res)=>{
+    ordenes =  await Distance.find();
+    res.send(ordenes);
+});
+
+//CREAR DISTANCIA
+router.post('/distances/create', async (req,res)=>{
+    const distancia = new Distance(req.body);
+    await distancia.save();
+    res.redirect('/');
+   
 });
 
 

@@ -18,7 +18,7 @@
 */
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch} from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/paper-dashboard.scss?v=1.3.0";
@@ -28,18 +28,31 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import Admin from "layouts/Admin.js";
 import User from "layouts/User.js";
 import Auth from "layouts/Auth.js";
-import axios from  'axios';
 
 const App = () => {
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState("admin");
   let layout, path;
+
+  switch (auth) {
+    case "user":
+      path = "/user/";
+      layout = <Route path={path} render={(props) => <User {...props} />} />
+      break;
+    case "admin":
+      path = "/admin/";
+      layout = <Route path={path} render={(props) => <Admin {...props} />} />
+      break;
+    default:
+      path = "/auth";
+      layout = <Route path={path} render={(props) => <Auth setAuth={setAuth} {...props} />} />
+      break;
+  }
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/admin" render={(props) => <Admin {...props} />} />
-        <Route path="/user" render={(props) => <User {...props} />} />
-        <Route path="/auth" render={(props) => <Auth {...props} />} />
+        {layout}
+        <Redirect to={path} />
       </Switch>
     </BrowserRouter>
   );

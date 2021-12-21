@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -20,23 +20,53 @@ import {
 
 import CrearOrden from "../Forms/CrearOrden.js"
 
+import compareStrings from "util/compareStrings.js";
+
 export default function Ordenes(props) {
   const [show, setShow] = useState(false);
+  const [data, setData] = useState([]);
+
+  const [searchParms, setSearchParms] = useState({
+    origien: "",
+    destino: "",
+    estado: "" 
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSubmit = (e) => e.preventDefault();
 
-  function getOrders(){
-    axios.get("https://httpbin.org/ip")
-    .then(res=>{
-      const ip = res.data;
-      console.log(ip);
-    })
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchParms(
+        {
+          origien: e.target.origen.value,
+          destino: e.target.destino.value,
+          estado: e.target.estado.value 
+        }
+    )
   }
 
+  React.useEffect(() => {
+    axios
+    .get("http://localhost:3001/orders")
+    .then(res=>{
 
+      Object.entries(res.data).forEach((entry) => {
+        const [key, value] = entry;
 
+        let orden = {
+          origien: value.originPort,
+          destino: value.destinationPort,
+          dimensiones: value.containerMeasures,
+          peso: value.orderWeight,
+          precio: value.price,
+          estado: value.orderStatus
+        }
+        setData([...data, orden]); 
+      });
+    })
+  }, []);
+  
   return (
     <>
     <Card className="h-100">
@@ -47,28 +77,28 @@ export default function Ordenes(props) {
               <Col md="4">
                 <FormGroup>
                   <label>Origen</label>
-                  <Input type="text" />
+                  <Input name="origen" type="text" />
                 </FormGroup>
               </Col>
 
               <Col md="4">
                 <FormGroup>
                   <label>Destino</label>
-                  <Input type="text" />
+                  <Input name="destino" type="text" />
                 </FormGroup>
               </Col>
 
               <Col md="4">
                 <FormGroup>
                   <label>Estado</label>
-                  <Input type="text" />
+                  <Input name="estado" type="text" />
                 </FormGroup>
               </Col>
             </Row>
 
             <Row>
               <Col md="12">
-                <Button type="button" onClick={getOrders} >Buscar</Button>
+                <Button type="submit"  >Buscar</Button>
                 <Button onClick={handleShow}>Crear</Button>
               </Col>
             </Row>
@@ -83,17 +113,38 @@ export default function Ordenes(props) {
               <th>Origen</th>
               <th>Destino</th>
               <th>Dimensiones</th>
+              <th>Peso</th>
               <th>Precio</th>
               <th>Estado</th>
             </tr>
-            <tr>
-              <th>fo</th>
-              <th>fa</th>
-            </tr>
-      
      
           </thead>
           <tbody>
+            {data.map((element, key) => {
+              if (searchParms.destino === "" && searchParms.estado === "" && searchParms.origien === "") {
+                return <tr key={key}>
+                  <td>{element.origien}</td>
+                  <td>{element.destino}</td>
+                  <td>{element.dimensiones}</td>
+                  <td>{element.peso}</td>
+                  <td>{element.precio}</td>
+                  <td>{element.estado}</td>
+                </tr>
+              } else {
+                if (compareStrings(element.destino, searchParms.destino) || compareStrings(element.origien, searchParms.origien) || compareStrings(element.estado, searchParms.estado)){
+                  return <tr key={key}>
+                  <td>{element.origien}</td>
+                  <td>{element.destino}</td>
+                  <td>{element.dimensiones}</td>
+                  <td>{element.peso}</td>
+                  <td>{element.precio}</td>
+                  <td>{element.estado}</td>
+                </tr>
+                } else {
+                  return null;
+                }
+              }
+            })}
           </tbody>
         </Table>
       </CardBody>
@@ -106,7 +157,7 @@ export default function Ordenes(props) {
       </ModalHeader>
 
       <ModalBody>
-        <CrearOrden />
+        <CrearOrden data={data} setData={setData} close={handleClose} />
       </ModalBody>
     </Modal>
     </>

@@ -8,40 +8,53 @@ import {
 } from "reactstrap";
 
 export default function CrearPuerto(props) {
-    return (
-      <Form>
-        <Row>   
-          <Col md="12">
-            <FormGroup>
-              <label>Puerto A</label>
-              <Input required name="portA"type="text" />
-            </FormGroup>
-          </Col>
-        </Row>
-            
-        <Row>
-          <Col md="12">
-            <FormGroup>
-              <label>Puerto B</label>
-              <Input required name="portB" type="text" />
-            </FormGroup>
-          </Col>
-        </Row>
+  
+  const submit = (e) => {
+    e.preventDefault();
 
-        <Row>
-          <Col md="12">
-            <FormGroup>
-              <label>Distancia</label>
-              <Input required name="distance" type="number" />
-            </FormGroup>
-          </Col>
-        </Row>
+    let data = [...props.data, {
+      puertoA: e.target.puertoA.value,
+      puertoB: e.target.puertoB.value,
+      distancia: e.target.distancia.value
+    }];
 
-        <Row>
-          <div className="ml-auto mr-auto">
-              <Button color="primary" type="submit"> Crear </Button>
-          </div>
-        </Row>
-      </Form>
-    )
+    props.setData(data);
+    props.close();
+  }
+  return (
+    <Form onSubmit={submit}>
+      <Row>   
+        <Col md="12">
+          <FormGroup>
+            <label>Puerto A</label>
+            <Input required name="puertoA"type="text" />
+          </FormGroup>
+        </Col>
+      </Row>
+          
+      <Row>
+        <Col md="12">
+          <FormGroup>
+            <label>Puerto B</label>
+            <Input required name="puertoB" type="text" />
+          </FormGroup>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col md="12">
+          <FormGroup>
+            <label>Distancia</label>
+            <Input required name="distancia" type="number" />
+          </FormGroup>
+        </Col>
+      </Row>
+
+      <Row>
+        <div className="ml-auto mr-auto">
+            <Button color="primary" type="submit"> Crear </Button>
+        </div>
+      </Row>
+    </Form>
+  )
 }

@@ -10,7 +10,7 @@ require('./database');
 require('./passport/local-auth')
 
 //setting
-app.set('port',process.env.PORT || 3000)
+app.set('port',process.env.PORT || 3001)
 app.set('json spaces',2)
 
 //MIDDLEWARES

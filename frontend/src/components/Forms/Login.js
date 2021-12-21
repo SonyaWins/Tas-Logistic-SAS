@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
     Button,
     Row,
@@ -8,39 +9,25 @@ import {
     Input
 } from "reactstrap";
 
-// auth: {
-// 	username: 'janedoe',
-// 	password: 's00pers3cret'
-//   }
-
-// async function Login(){
-// 	await axios.post(session_url, {}, {
-// 		auth: {
-// 		  username: uname,
-// 		  password: pass
-// 		}
-// 	  });
-// }
+import { session_url } from "../../variables/general.js"
 
 export default function login(props) {
-	const session_url = "";
 
 	const submit = (e) => {
 		e.preventDefault();
 
-		console.log("username " + e.target.username.value);
-		console.log("password" + e.target.password.value);
-
-		axios.post(session_url, {}, {
+		axios.post(session_url, {'Content-Type': 'text/plain'}, {
 			auth: {
 			  username: e.target.username.value,
 			  password: e.target.password.value
 			}
 		}).then((response) =>
 			console.log(response)
-		);	  
+		).catch(error => {
+            console.log("Error ========>", error);
+        });	  
 	}
-	
+
 	return (
 		<Form onSubmit={submit}>
 			<Row>   

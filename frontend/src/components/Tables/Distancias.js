@@ -18,14 +18,42 @@ import {
 } from "reactstrap";
 
 import CrearDistancia from "../Forms/CrearDistancia.js"
+import compareStrings from "util/compareStrings.js";
 
 export default function Distancias(props) {
     const [show, setShow] = useState(false);
+    const [searchParms, setSearchParms] = useState({
+        puertoA: "",
+        puertoB: ""
+    });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const handleSubmit = (e) => e.preventDefault();
     
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        setSearchParms(
+            {
+                puertoA: e.target.puertoA.value,
+                puertoB: e.target.puertoB.value
+            }
+        )
+    }
+    
+    const [data, setData] = useState([
+        {
+            puertoA: "Puerto Colombia",
+            puertoB: "Cartagena",
+            distancia: 100
+        },
+        {
+            puertoA: "Puerto Colombia",
+            puertoB: "Santa Marta",
+            distancia: 200
+        }
+    ]);
+
     return (
       <>
         <Card className="">
@@ -36,18 +64,14 @@ export default function Distancias(props) {
                 <Col md="6">
                     <FormGroup>
                     <label>Puerto A</label>
-                    <Input
-                        type="text"
-                    />
+                    <Input name="puertoA" type="text" />
                     </FormGroup>
                 </Col>
 
                 <Col md="6">
                     <FormGroup>
                     <label>Puerto B</label>
-                    <Input
-                        type="text"
-                    />
+                    <Input name="puertoB" type="text" />
                     </FormGroup>
                 </Col>
                 </Row>
@@ -64,12 +88,36 @@ export default function Distancias(props) {
             <Table responsive>
                 <thead className="text-primary">
                 <tr>
-                    <th>Origen</th>
-                    <th>Destino</th>
+                    <th>Puerto A</th>
+                    <th>Puerto B</th>
                     <th>Distancia</th>
                 </tr>
                 </thead>
                 <tbody>
+                    {data.map((element, key) => {
+                        if (searchParms.puertoA === "" && searchParms.puertoB === "") {
+                            return <tr key={key}>
+                                <td>{element.puertoA}</td>
+                                <td>{element.puertoB}</td>
+                                <td>{element.distancia}</td>
+                            </tr>
+                        } else {
+                            if (compareStrings(element.puertoA, searchParms.puertoA) ||
+                                compareStrings(element.puertoA, searchParms.puertoB) ||
+                                compareStrings(element.puertoB, searchParms.puertoA) ||
+                                compareStrings(element.puertoB, searchParms.puertoB)) {
+
+                                    return <tr key={key}>
+                                        <td>{element.puertoA}</td>
+                                        <td>{element.puertoB}</td>
+                                        <td>{element.distancia}</td>
+                                    </tr>
+                            } else {
+                                return null;
+                            }
+                        }
+                        
+                    })}
                 </tbody>
             </Table>
             </CardBody>
@@ -81,7 +129,7 @@ export default function Distancias(props) {
         </ModalHeader>
 
         <ModalBody>
-          <CrearDistancia />
+          <CrearDistancia close={handleClose} data={data} setData={setData} />
         </ModalBody>
       </Modal>
       </>

@@ -19,12 +19,40 @@ import {
 
 import CrearPuerto from "../Forms/CrearPuerto.js"
 
+import compareStrings from "util/compareStrings.js";
+
 export default function Puertos(props) {
   const [show, setShow] = useState(false);
+  const [searchParms, setSearchParms] = useState({
+    nombre: "",
+    pais: "",
+    ciudad: ""
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleSubmit = (e) => e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    setSearchParms(
+      {
+          nombre: e.target.nombre.value,
+          pais: e.target.pais.value,
+          ciudad: e.target.ciudad.value
+      }
+  )
+  }
+  const [data, setData] = useState([
+    {
+      nombre: "Puerto Colombia",
+      pais: "Colombia",
+      ciudad: "NA"
+    },
+    {
+      nombre: "Cartagena",
+      pais: "Colombia"
+    }
+  ]);
 
   return (
     <>
@@ -34,17 +62,23 @@ export default function Puertos(props) {
         
           <Form onSubmit={handleSubmit}>
             <Row>
-              <Col md="6">
+              <Col md="4">
                 <FormGroup>
                   <label>Nombre</label>
-                  <Input type="text" />
+                  <Input name="nombre" type="text" />
                 </FormGroup>
               </Col>
 
-              <Col md="6">
+              <Col md="4">
                 <FormGroup>
-                  <label>Locaciòn</label>
-                  <Input type="text" />
+                  <label>País</label>
+                  <Input name="pais" type="text" />
+                </FormGroup>
+              </Col>
+              <Col md="4">
+                <FormGroup>
+                  <label>Ciudad</label>
+                  <Input name="ciudad" type="text" />
                 </FormGroup>
               </Col>
             </Row>
@@ -69,6 +103,25 @@ export default function Puertos(props) {
             </tr>
             </thead>
             <tbody>
+              {data.map((element) => {
+                if (searchParms.ciudad === "" && searchParms.nombre === "" && searchParms.pais === "") {
+                  return <tr>
+                    <td>{element.nombre}</td>
+                    <td>{element.pais}</td>
+                    <td>{element.ciudad}</td>
+                  </tr>
+                } else {
+                  if (compareStrings(element.nombre, searchParms.nombre) || compareStrings(element.pais, searchParms.pais) || compareStrings(element.ciudad, searchParms.ciudad)) {
+                    return <tr>
+                    <td>{element.nombre}</td>
+                    <td>{element.pais}</td>
+                    <td>{element.ciudad}</td>
+                  </tr>
+                  } else {
+                    return null;
+                  }
+                }
+              })}
             </tbody>
           </Table>
         </CardBody>
@@ -80,7 +133,7 @@ export default function Puertos(props) {
         </ModalHeader>
 
         <ModalBody>
-          <CrearPuerto />
+          <CrearPuerto data={data} setData={setData} close={handleClose} />
         </ModalBody>
       </Modal>
     </>

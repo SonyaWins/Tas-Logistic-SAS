@@ -63,6 +63,7 @@ function Admin(props) {
       <div className="main-panel" ref={mainPanel}>
         <Header {...props} routes={routes}/>
         <Switch>
+          
           {routes.map((prop, key) => {
             return (
               <Route
@@ -72,6 +73,7 @@ function Admin(props) {
               />
             );
           })}
+          
         </Switch>
       </div>
     </div>
