@@ -41,6 +41,7 @@ router.get('/orders',async (req,res)=>{
 
 //CREAR ORDEN
 router.post('/orders/create', async (req,res)=>{
+    console.log(req.body)
     const orden = new Order(req.body);
     await orden.save();
     res.redirect('/');

@@ -24,18 +24,19 @@ export default function CrearOrden(props) {
       estado: e.target.estado.value
     }
     
-    let axioData = {
+    var axioData = {
       originPort: orden.origen,
       destinationPort: orden.destino,
       orderID:props.data.length + 1,
       orderDescription: "",
       orderWeight:orden.peso,
       containerMeasures:orden.dimensiones,
+      price:orden.precio,
       orderStatus:orden.estado,
     }
     //let data = [...props.data, orden]
 
-    axios.post(`${session_url}/orders/create`, {axioData})
+    axios.post(`${session_url}/orders/create`,  axioData)
     .then(res=>{
       console.log(res.data);
     })
